@@ -24,7 +24,7 @@ spec:
       volumes:
         - name: ${APPLICATION_NAME}-kubeconfig
           secretRef:
-            name: ${APPLICATION_NAME}-kubeconfig
+            name: kubeconfig
 ---
 apiVersion: v1
 kind: Service

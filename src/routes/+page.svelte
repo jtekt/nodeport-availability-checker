@@ -29,6 +29,10 @@
 				service.spec.ports.some(({ nodePort }) => String(nodePort).includes(String(search)))
 		  )
 		: data.services;
+
+	$: sortedServices = filteredServices
+		.slice()
+		.sort((a, b) => a.spec.ports[0].nodePort - b.spec.ports[0].nodePort);
 </script>
 
 <TopAppBar bind:this={topAppBar} variant="fixed">
@@ -60,7 +64,7 @@
 				</Row>
 			</Head>
 			<Body>
-				{#each filteredServices as service}
+				{#each sortedServices as service}
 					<Row>
 						<Cell>{service.metadata.namespace}</Cell>
 						<Cell>{service.metadata.name}</Cell>

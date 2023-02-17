@@ -16,7 +16,7 @@ spec:
         - name: ${APPLICATION_NAME}
           image: ${CONTAINER_IMAGE_TAGGED}
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           volumeMounts:
             - mountPath: /app/config/kubeconfig
               subPath: kubeconfig
@@ -35,7 +35,7 @@ metadata:
   namespace: moreillon
 spec:
   ports:
-    - port: 80
+    - port: 3000
       nodePort: ${K8S_NODEPORT}
   selector:
     app: ${APPLICATION_NAME}

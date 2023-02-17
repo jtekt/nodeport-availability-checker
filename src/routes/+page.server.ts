@@ -1,9 +1,12 @@
 import k8s from '@kubernetes/client-node';
-import kubeconfig from '$lib/server/kubeconfig';
 
 export async function load() {
+	const files = import.meta.glob('/config/*', { as: 'raw' });
+
+	const kubeconfigFileContent = await files['/config/kubeconfig']();
+
 	const kc = new k8s.KubeConfig();
-	kc.loadFromString(JSON.stringify(kubeconfig));
+	kc.loadFromString(kubeconfigFileContent);
 
 	const api = kc.makeApiClient(k8s.CoreV1Api);
 

@@ -21,6 +21,8 @@ spec:
             - mountPath: /app/config/kubeconfig
               subPath: kubeconfig
               name: ${APPLICATION_NAME}-kubeconfig
+      imagePullSecrets:
+        - name: ${K8S_ECR_SECRET_NAME}
       volumes:
         - name: ${APPLICATION_NAME}-kubeconfig
           secret:

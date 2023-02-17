@@ -1,12 +1,13 @@
 import k8s from '@kubernetes/client-node';
 
 export async function load() {
-	const files = import.meta.glob('/config/*', { as: 'raw' });
-
-	const kubeconfigFileContent = await files['/config/kubeconfig']();
-
 	const kc = new k8s.KubeConfig();
-	kc.loadFromString(kubeconfigFileContent);
+
+	// const files = import.meta.glob('/config/*', { as: 'raw' });
+	// const kubeconfigFileContent = await files['/config/kubeconfig']();
+	// kc.loadFromString(kubeconfigFileContent);
+
+	kc.loadFromCluster();
 
 	const api = kc.makeApiClient(k8s.CoreV1Api);
 

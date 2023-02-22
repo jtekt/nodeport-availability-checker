@@ -42,6 +42,7 @@
 		</Section>
 		<Section align="end">
 			<Textfield
+				label="NodePort"
 				variant="filled"
 				color="green"
 				type="number"
@@ -76,3 +77,15 @@
 		</DataTable>
 	</main>
 </AutoAdjust>
+<footer>NodePort availability checker - Maxime Moreillon - JTEKT Corporation</footer>
+
+<style>
+	footer {
+		margin: 0;
+		padding: 0;
+		/* background-color: #cccccc; */
+		text-align: center;
+		padding: 0.75em;
+		font-size: 80%;
+	}
+</style>

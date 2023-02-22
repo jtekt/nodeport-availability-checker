@@ -12,21 +12,14 @@ spec:
       labels:
         app: ${APPLICATION_NAME}
     spec:
+      serviceAccountName: ${K8S_SERVICEACCOUNT}
       containers:
         - name: ${APPLICATION_NAME}
           image: ${CONTAINER_IMAGE_TAGGED}
           ports:
             - containerPort: 3000
-          volumeMounts:
-            - mountPath: /app/config/kubeconfig
-              subPath: kubeconfig
-              name: kubeconfig
       imagePullSecrets:
         - name: ${K8S_ECR_SECRET_NAME}
-      volumes:
-        - name: kubeconfig
-          secret:
-            secretName: kubeconfig
 ---
 apiVersion: v1
 kind: Service

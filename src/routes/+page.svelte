@@ -41,14 +41,7 @@
 			<Title>NodePort availability checker</Title>
 		</Section>
 		<Section align="end">
-			<Textfield
-				label="NodePort"
-				variant="filled"
-				color="green"
-				type="number"
-				bind:value={search}
-				input$emptyValueUndefined
-			>
+			<Textfield label="NodePort" variant="filled" bind:value={search} input$emptyValueUndefined>
 				<Icon class="material-icons" slot="trailingIcon">search</Icon>
 			</Textfield>
 		</Section>

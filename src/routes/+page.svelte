@@ -38,6 +38,7 @@
 <TopAppBar bind:this={topAppBar} variant="fixed">
 	<TopAppBarRow>
 		<Section>
+			<img src="/svc.png" class="logo" />
 			<Title>NodePort availability checker</Title>
 		</Section>
 		<Section align="end">
@@ -73,6 +74,10 @@
 <footer>NodePort availability checker - Maxime Moreillon - JTEKT Corporation</footer>
 
 <style>
+	.logo {
+		width: 2.5em;
+		height: 2.5em;
+	}
 	footer {
 		margin: 0;
 		padding: 0;

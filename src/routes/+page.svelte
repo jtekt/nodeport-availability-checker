@@ -37,14 +37,14 @@
 		.sort((a, b) => a.spec.ports[0].nodePort - b.spec.ports[0].nodePort);
 </script>
 
-<TopAppBar bind:this={topAppBar} variant="fixed">
+<TopAppBar bind:this={topAppBar} variant="fixed" color="secondary" class="mdc-elevation--z1">
 	<TopAppBarRow>
 		<Section>
 			<img src="/svc.png" class="logo" alt="svc_icon" />
 			<Title>NodePort availability checker</Title>
 		</Section>
 		<Section align="end">
-			<Textfield variant="filled" bind:value={search} input$emptyValueUndefined>
+			<Textfield variant="outlined" bind:value={search} input$emptyValueUndefined>
 				<Icon class="material-icons" slot="trailingIcon">search</Icon>
 			</Textfield>
 		</Section>
@@ -76,7 +76,7 @@
 
 <style>
 	main {
-		max-width: 80rem;
+		max-width: 60rem;
 		margin-inline: auto;
 	}
 

@@ -25,8 +25,10 @@
 	let search: '';
 
 	$: filteredServices = search
-		? data.services.filter((service) =>
-				service.spec.ports.some(({ nodePort }) => String(nodePort).includes(String(search)))
+		? data.services.filter(
+				(service) =>
+					service.spec.ports.some(({ nodePort }) => String(nodePort).includes(String(search))) ||
+					service.metadata.name.toLocaleLowerCase().includes(String(search))
 		  )
 		: data.services;
 
@@ -38,11 +40,11 @@
 <TopAppBar bind:this={topAppBar} variant="fixed">
 	<TopAppBarRow>
 		<Section>
-			<img src="/svc.png" class="logo" />
+			<img src="/svc.png" class="logo" alt="svc_icon" />
 			<Title>NodePort availability checker</Title>
 		</Section>
 		<Section align="end">
-			<Textfield label="NodePort" variant="filled" bind:value={search} input$emptyValueUndefined>
+			<Textfield variant="filled" bind:value={search} input$emptyValueUndefined>
 				<Icon class="material-icons" slot="trailingIcon">search</Icon>
 			</Textfield>
 		</Section>
@@ -54,7 +56,7 @@
 			<Head>
 				<Row>
 					<Cell>Namespace</Cell>
-					<Cell>Name</Cell>
+					<Cell style="width: 100%;">Name</Cell>
 					<Cell>NodePort</Cell>
 				</Row>
 			</Head>
@@ -63,7 +65,6 @@
 					<Row>
 						<Cell>{service.metadata.namespace}</Cell>
 						<Cell>{service.metadata.name}</Cell>
-						<!-- TODO: multiple -->
 						<Cell>{service.spec.ports.map((p) => p.nodePort).join(', ')}</Cell>
 					</Row>
 				{/each}
@@ -74,6 +75,11 @@
 <footer>NodePort availability checker - Maxime Moreillon - JTEKT Corporation</footer>
 
 <style>
+	main {
+		max-width: 80rem;
+		margin-inline: auto;
+	}
+
 	.logo {
 		width: 2.5em;
 		height: 2.5em;

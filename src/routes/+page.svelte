@@ -51,32 +51,30 @@
 	</TopAppBarRow>
 </TopAppBar>
 <AutoAdjust {topAppBar}>
-	<main>
-		<DataTable table$aria-label="NodePort list" style="width: 100%;">
-			<Head>
+	<DataTable table$aria-label="NodePort list" style="width: 100%; margin-top: 1em">
+		<Head>
+			<Row>
+				<Cell>Namespace</Cell>
+				<Cell style="width: 100%;">Name</Cell>
+				<Cell>NodePort</Cell>
+			</Row>
+		</Head>
+		<Body>
+			{#each sortedServices as service}
 				<Row>
-					<Cell>Namespace</Cell>
-					<Cell style="width: 100%;">Name</Cell>
-					<Cell>NodePort</Cell>
+					<Cell>{service.metadata.namespace}</Cell>
+					<Cell>{service.metadata.name}</Cell>
+					<Cell>{service.spec.ports.map((p) => p.nodePort).join(', ')}</Cell>
 				</Row>
-			</Head>
-			<Body>
-				{#each sortedServices as service}
-					<Row>
-						<Cell>{service.metadata.namespace}</Cell>
-						<Cell>{service.metadata.name}</Cell>
-						<Cell>{service.spec.ports.map((p) => p.nodePort).join(', ')}</Cell>
-					</Row>
-				{/each}
-			</Body>
-		</DataTable>
-	</main>
+			{/each}
+		</Body>
+	</DataTable>
 </AutoAdjust>
 <footer>NodePort availability checker - Maxime Moreillon - JTEKT Corporation</footer>
 
 <style>
-	main {
-		max-width: 60rem;
+	:global(main) {
+		max-width: 80rem;
 		margin-inline: auto;
 	}
 

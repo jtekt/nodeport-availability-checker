@@ -2,10 +2,9 @@ stages:
   - build
   - deploy
 
-# Needed to use Docker command in CICD
 image: moreillon/ci-dind:4bca50d7
 services:
-  - name: docker:19.03.12-dind
+  - name: docker:20.10.18-dind
 
 variables:
   APPLICATION_NAME: nodeport-availability-checker

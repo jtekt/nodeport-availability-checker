@@ -43,14 +43,13 @@
 			<img src="/svc.png" class="logo" alt="svc_icon" />
 			<Title>NodePort availability checker</Title>
 		</Section>
-		<Section align="end">
-			<Textfield variant="outlined" bind:value={search} input$emptyValueUndefined>
-				<Icon class="material-icons" slot="trailingIcon">search</Icon>
-			</Textfield>
-		</Section>
 	</TopAppBarRow>
 </TopAppBar>
 <AutoAdjust {topAppBar}>
+	<Textfield bind:value={search} input$emptyValueUndefined class="search">
+		<Icon class="material-icons" slot="trailingIcon">search</Icon>
+	</Textfield>
+
 	<DataTable table$aria-label="NodePort list" style="width: 100%; margin-top: 1em">
 		<Head>
 			<Row>
@@ -89,5 +88,9 @@
 		text-align: center;
 		padding: 0.75em;
 		font-size: 80%;
+	}
+
+	:global(.search) {
+		width: 100%;
 	}
 </style>

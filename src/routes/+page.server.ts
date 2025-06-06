@@ -4,6 +4,7 @@ export async function load() {
 	const kc = new k8s.KubeConfig();
 
 	if (process.env.NODE_ENV === 'development') {
+		// TODO: find way to get user directory
 		const files = import.meta.glob('../../*', { as: 'raw' });
 		const kubeconfigFileContent = await files['../../kubeconfig']();
 		kc.loadFromString(kubeconfigFileContent);
@@ -17,18 +18,21 @@ export async function load() {
 		body: { items }
 	} = await api.listServiceForAllNamespaces();
 
+	console.log(items[0].spec);
+
 	const services = items
-		.map(({ metadata }) => {
-			const config = metadata?.annotations?.['kubectl.kubernetes.io/last-applied-configuration'];
-			if (!config) return null;
-			try {
-				const parsedConfig = JSON.parse(config);
-				return parsedConfig;
-			} catch (error) {
-				return null;
-			}
-		})
-		.filter((service) => !!service && service.spec.type === 'NodePort');
+		.filter(({ spec }) => spec?.type === 'NodePort')
+		.map(({ spec, metadata }) => {
+			return {
+				metadata: {
+					name: metadata?.name,
+					namespace: metadata?.namespace
+				},
+				spec: {
+					ports: JSON.parse(JSON.stringify(spec?.ports))
+				}
+			};
+		});
 
 	return { services };
 }
